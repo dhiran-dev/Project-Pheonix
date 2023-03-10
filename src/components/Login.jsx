@@ -1,6 +1,8 @@
 import React from "react";
 import "./Login.css";
 import { useState } from "react";
+import signupicon from "../assets/signup_icon.png";
+import signinicon from "../assets/signin_icon.png";
 
 const Login = () => {
   let strength = 0;
@@ -98,13 +100,34 @@ const Login = () => {
         </div>
 
         <ul>
-          <li> {testPass[0] ? "✔️" : "❌"} must be at least 5 characters</li>
-          <li> {testPass[1] ? "✔️" : "❌"} must contain a capital letter</li>
-          <li> {testPass[2] ? "✔️" : "❌"} must contain a number</li>
-          <li>{testPass[3] ? "✔️" : "❌"} must contain one of $&+,:;=?@#</li>
+          <li className="validation">
+            {" "}
+            {testPass[0] ? "✔️" : "❌"} must be at least 5 characters
+          </li>
+          <li className="validation">
+            {" "}
+            {testPass[1] ? "✔️" : "❌"} must contain a capital letter
+          </li>
+          <li className="validation">
+            {" "}
+            {testPass[2] ? "✔️" : "❌"} must contain a number
+          </li>
+          <li className="validation">
+            {testPass[3] ? "✔️" : "❌"} must contain one of $&+,:;=?@#
+          </li>
         </ul>
-
-        <button disabled={PassStrenght < 4}>Sign Up</button>
+        <div className="buttonsection">
+          <button disabled={PassStrenght < 4} className="btn login">
+            Login
+            <img src={signinicon}/>
+          </button>
+          <button disabled={PassStrenght < 4} className="btn signup">
+            <span className="btn-span">
+              Sign up
+              <img src={signupicon} />
+            </span>
+          </button>
+        </div>
       </form>
     </>
   );
