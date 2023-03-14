@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Arrow from "../assets/Arrow_1.png";
-import "./HomePage.css";
+// import "./HomePage.css";
 import Icon from "../assets/Fire_icon.png";
 
 const HomePage = () => {
