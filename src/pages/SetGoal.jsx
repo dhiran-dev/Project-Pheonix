@@ -7,33 +7,11 @@ import InfoSection from "../components/InfoSection";
 import { useState } from "react";
 
 const SetGoal = () => {
-  const [currentWeight, setCurrentWeight] = useState("");
-  const [Actvitylevel, setActivitylevel] = useState("");
 
-  const handleCurrentWeight = (setWeightChild) => {
-    setCurrentWeight(setWeightChild);
-  };
-
-  const handleActivitylevel = (setActivityChild) => {
-    setActivitylevel(setActivityChild);
-    console.log(setActivityChild);
-  };
-
-  const calculateMaintainence = (e) => {
-    e.preventDefault();
-    console.log(currentWeight);
-    console.log(Actvitylevel);
-    const Maintainance = currentWeight * 2.2 * Actvitylevel;
-    console.log(Maintainance);
-  };
   return (
     <Container>
       <Header />
-      <CalculateMaintenance
-        setWeight={handleCurrentWeight}
-        setActivity={handleActivitylevel}
-        calcMaintainance={calculateMaintainence}
-      />
+      <CalculateMaintenance />
       <CalculateGoal />
       <InfoSection />
     </Container>

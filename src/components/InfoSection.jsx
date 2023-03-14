@@ -1,19 +1,41 @@
 import React from "react";
 import styled from "styled-components";
 import setgoal from "../assets/setgoal.png";
+import { useSelector } from "react-redux";
 
 const InfoSection = () => {
+  const maintainance = useSelector((state) => state.goal.maintainance);
+  const goalCalories = useSelector((state) => state.goal.goalCalories);
+  const goalWeight = useSelector((state) => state.goal.goalweight);
+  const currentWeight = useSelector((state) => state.goal.currentWeight);
+  const rate = useSelector((state) => state.goal.rate);
+
+  const sendGoaltoBackend = (e) => {
+    e.preventDefault();
+    console.log({
+      maintainance,
+      goalCalories,
+      goalWeight,
+      currentWeight,
+      rate,
+    });
+  };
   return (
     <Container>
       <InputField1>
-        Your Maintenance Calories for the week is <input />
+        Your Maintenance Calories for the week is{" "}
+        <input type="text" value={maintainance} readOnly />
       </InputField1>
       <InputField2>
-        <input /> Calories to be burned in this week including 1 rest days and 6
-        active days. You should burn <input /> Calories for a day, you might
-        reach <input /> goal weight of the week
+        <input type="text" value={goalCalories} readOnly /> Calories to be
+        burned in this week including 1 rest days and 6 active days. You should
+        burn{" "}
+        <input type="text" value={(goalCalories / 6).toFixed(1)} readOnly />
+        Calories for a day, you might reach{" "}
+        <input type="text" value={goalWeight} readOnly /> goal weight of the
+        week
       </InputField2>
-      <SetGoalButton>
+      <SetGoalButton onClick={sendGoaltoBackend}>
         Set Goal
         <SetGoalIcon src={setgoal} />
       </SetGoalButton>

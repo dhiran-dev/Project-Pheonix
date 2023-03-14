@@ -1,8 +1,40 @@
 import React from "react";
 import styled from "styled-components";
 import Calculate from "../assets/Calculate.png";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateRate,
+  updateGoalCalories,
+  updateGoalWeight,
+} from "../features/goal/goalSlice";
 
 const CalculateGoal = () => {
+  const dispatch = useDispatch();
+  const currentWeight = useSelector((state) => state.goal.currentWeight);
+  const rate = useSelector((state) => state.goal.rate);
+  const maintainance = useSelector((state) => state.goal.maintainance);
+
+  const handleRateLevelChange = (event) => {
+    dispatch(updateRate(event.target.value));
+  };
+
+  const CalculateDefecit = (e) => {
+    e.preventDefault();
+    console.log("Maintainance", maintainance, "rate", rate);
+    const defecit = Number(maintainance) + Number(rate);
+    // console.log(defecit);
+    dispatch(updateGoalCalories(defecit));
+
+    //Updating goal weight
+    if (rate == "7700") {
+      dispatch(updateGoalWeight(currentWeight - 1));
+    } else if (rate == "5390") {
+      dispatch(updateGoalWeight(currentWeight - 0.7));
+    } else if (rate == "3500") {
+      dispatch(updateGoalWeight(currentWeight - 0.5));
+    }
+  };
+
   return (
     <Container>
       <Card>
@@ -12,15 +44,18 @@ const CalculateGoal = () => {
             <label name="rate" htmlFor="rate">
               Rate of weight loss expected
             </label>
-            <select name="rate" id="rate">
-              <option value="1">1%</option>
-              <option value="1.5">1.5%</option>
-              <option value="2">2%</option>
+            <select name="rate" id="rate" onChange={handleRateLevelChange}>
+              <option value="" disabled selected>
+                select
+              </option>
+              <option value="3500">0.5 KG</option>
+              <option value="5390">0.7 KG</option>
+              <option value="7700">1 KG</option>
             </select>
             <p>1% of Current Wt is recommended per week</p>
           </InputField>
           <InputField>
-            <CalculateButton>
+            <CalculateButton onClick={CalculateDefecit}>
               Calculate
               <CalculateIcon src={Calculate} />
             </CalculateButton>
@@ -41,10 +76,9 @@ const Container = styled.div`
   height: 27.5%;
 
   @media screen and (min-width: 1200px) {
-    min-height : 150px;
-    margin-bottom : 40px;
+    min-height: 150px;
+    margin-bottom: 40px;
   }
-  
 `;
 
 const Card = styled.div`
@@ -154,7 +188,7 @@ const FormSection = styled.form`
 
     @media screen and (min-width: 1200px) {
       height: 150px;
-      width : 100px;
+      width: 100px;
       font-size: 22px;
     }
   }
