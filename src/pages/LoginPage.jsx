@@ -2,7 +2,6 @@ import React from "react";
 import Login from "../components/Login";
 import styled from "styled-components";
 
-
 const LoginPage = () => {
   return (
     <Container>
@@ -23,7 +22,7 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-`
+`;
 
 const HeaderContent = styled.div`
   position: relative;
@@ -32,7 +31,8 @@ const HeaderContent = styled.div`
   justify-content: center;
   flex-direction: column;
   top: 10px;
-  margin: 15px;
+  margin: auto;
+  width: 800px;
 `;
 
 const Title = styled.h1`
@@ -83,8 +83,7 @@ const SubTitle = styled.h3`
 
 const LoginSection = styled.div`
   position: relative;
-  left: 38%;
-  top: 20%;
+  margin: auto;
   width: 441px;
   height: 500px;
   align-items: center;

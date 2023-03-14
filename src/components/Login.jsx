@@ -3,13 +3,17 @@ import "./Login.css";
 import { useState } from "react";
 import signupicon from "../assets/signup_icon.png";
 import signinicon from "../assets/signin_icon.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   let strength = 0;
   let validations = [];
   const [PassStrenght, setPassStrenght] = useState(0);
   const [testPass, setTestPass] = useState([false, false, false, false]);
   const [showPassword, setShowPassword] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
 
   const validatePassword = (e) => {
     const password = e.target.value;
@@ -53,13 +57,78 @@ const Login = () => {
     ];
     strength = validations.reduce((acc, cur) => acc + cur, 0);
     setPassStrenght(strength);
+
+    if (PassStrenght == "4") {
+      setUserPassword(e.target.value);
+    }
+  };
+
+  const emailInputHandler = (e) => {
+    setUserEmail(e.target.value);
+  };
+
+  //Handle Sign-up functionality
+  const signupHandler = async (e) => {
+    e.preventDefault();
+    // console.log({ userEmail, userPassword });
+    const response = await fetch("http://localhost:8080/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userEmail,
+        userPassword,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.status === "ok") {
+      navigate("/setgoal");
+    } else {
+      alert("Duplicate email, please sign up with unique credentials");
+    }
+
+    console.log(data);
+  };
+
+  //Handle Login functionality
+  const loginHandler = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userEmail,
+        userPassword,
+      }),
+    });
+
+    const data = await response.json();
+    if (data.accessToken) {
+      localStorage.setItem("token", data.accessToken);
+      alert("login successful");
+      navigate("/trackgoal");
+    } else {
+      alert("Please check your username and password");
+    }
+    console.log(data.accessToken);
   };
 
   return (
     <>
       <form>
         <div className="field">
-          <input type="email" name="email" className="input" placeholder="" />
+          <input
+            type="email"
+            name="email"
+            className="input"
+            placeholder=""
+            onInput={emailInputHandler}
+          />
           <label htmlFor="email" className="label">
             Email
           </label>
@@ -117,11 +186,19 @@ const Login = () => {
           </li>
         </ul>
         <div className="buttonsection">
-          <button disabled={PassStrenght < 4} className="btn login">
+          <button
+            disabled={PassStrenght < 4}
+            className="btn login"
+            onClick={loginHandler}
+          >
             Login
-            <img src={signinicon}/>
+            <img src={signinicon} />
           </button>
-          <button disabled={PassStrenght < 4} className="btn signup">
+          <button
+            disabled={PassStrenght < 4}
+            className="btn signup"
+            onClick={signupHandler}
+          >
             <span className="btn-span">
               Sign up
               <img src={signupicon} />

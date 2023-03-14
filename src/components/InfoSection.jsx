@@ -30,6 +30,13 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 40px;
+
+  @media screen and (min-width: 1200px) {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: -20px;
+  }
 `;
 const InputField1 = styled.div`
   font-family: "Inria Sans";
@@ -41,6 +48,13 @@ const InputField1 = styled.div`
   /* margin-top: -60px;
   margin-bottom: 0px; */
 
+  @media screen and (min-width: 1200px) {
+    font-size : 24px;
+    margin-bottom : -30px;
+    font-weight: 200;
+  }
+  }
+
   input {
     height: 40px;
     border: 1px solid white;
@@ -51,7 +65,12 @@ const InputField1 = styled.div`
     width: 100px;
     font-size: 20px;
     text-align: center;
+
+    @media screen and (min-width: 1200px) {
+    height : 35px;
+    width : 65px;
   }
+  
 `;
 
 const InputField2 = styled.div`
@@ -63,6 +82,11 @@ const InputField2 = styled.div`
   text-align: center;
   color: #bababa;
   max-width: 892px;
+
+  @media screen and (min-width: 1200px) {
+    font-size: 24px;
+    font-weight: 200;
+  }
 
   input {
     height: 30px;
@@ -91,7 +115,7 @@ const SetGoalButton = styled.button`
   text-align: center;
   justify-content: center;
   color: black;
-  background: black;
+
   border-radius: 4px;
   background: linear-gradient(
     270deg,
@@ -103,6 +127,11 @@ const SetGoalButton = styled.button`
     #1fcfda 80.45%
   );
   transition: 0.2s ease-in;
+
+  @media screen and (min-width: 1200px) {
+    width: 180px;
+    height: 50px;
+  }
 
   :hover {
     background: black;

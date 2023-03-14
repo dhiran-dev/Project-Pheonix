@@ -39,12 +39,18 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 27.5%;
+
+  @media screen and (min-width: 1200px) {
+    min-height : 150px;
+    margin-bottom : 40px;
+  }
+  
 `;
 
 const Card = styled.div`
   width: 90%;
   height: 90%;
-  border: 1px solid white;
+  border: 1px solid teal;
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -64,6 +70,14 @@ const Title = styled.h3`
   margin-left: 30px;
   margin-bottom: 10px;
   margin-top: 20px;
+
+  @media screen and (min-width: 1200px) {
+    min-width: 600px;
+    min-height: 80px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+    font-size: 30px;
+  }
 `;
 
 const FormSection = styled.form`
@@ -73,6 +87,15 @@ const FormSection = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  left: 210px;
+
+  @media screen and (min-width: 1200px) {
+    position: relative;
+    left: 210px;
+    top: -30px;
+    height: 80%;
+  }
 
   input {
     height: 50px;
@@ -95,8 +118,11 @@ const FormSection = styled.form`
     display: flex;
     align-items: center;
     text-align: center;
-
     color: #c2c0c0;
+
+    @media screen and (min-width: 1200px) {
+      font-size: 20px;
+    }
   }
 
   p {
@@ -108,8 +134,11 @@ const FormSection = styled.form`
     display: flex;
     align-items: center;
     text-align: center;
-
     color: #c2c0c0;
+
+    @media screen and (min-width: 1200px) {
+      margin-top: 5px;
+    }
   }
 
   select {
@@ -122,6 +151,12 @@ const FormSection = styled.form`
     text-align: center;
     margin-top: 10px;
     width: 150px;
+
+    @media screen and (min-width: 1200px) {
+      height: 150px;
+      width : 100px;
+      font-size: 22px;
+    }
   }
 `;
 
@@ -132,6 +167,10 @@ const InputField = styled.div`
   justify-content: center;
   align-items: center;
   height: 150px;
+
+  @media screen and (min-width: 1200px) {
+    height: 120px;
+  }
 `;
 
 const CalculateButton = styled.button`
