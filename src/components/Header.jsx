@@ -3,9 +3,12 @@ import styled from "styled-components";
 import Pheonix from "../assets/phoenix.png";
 import settings from "../assets/settings_icon.png";
 import { NavLink } from "react-router-dom";
-import "./Header.css";
+// import "./Header.css";
 
 const Header = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  };
   return (
     <Container>
       <TitleSection>
@@ -27,7 +30,7 @@ const Header = () => {
           <NavLink
             to="/setgoal"
             style={({ isActive }) => ({
-              textDecoration: isActive ? "underline" : "white",
+              color: isActive ? "red" : "white",
             })}
           >
             Set Goal
@@ -49,7 +52,9 @@ const Header = () => {
           </NavLink>
         </NavElement>
         <NavElement>
-          <NavLink to="/">Log out</NavLink>
+          <NavLink to="/" onClick={handleLogout}>
+            Log out
+          </NavLink>
         </NavElement>
       </NavSection>
     </Container>
@@ -64,6 +69,11 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 7%;
+
+  @media screen and (min-width: 1200px) {
+    min-width: 1200px;
+    min-height: 70px;
+  }
 `;
 
 const TitleSection = styled.div`
@@ -80,6 +90,10 @@ const NavSection = styled.div`
   height: 55px;
   margin: 0 10px;
   display: flex;
+
+  @media screen and (min-width: 1200px) {
+    min-width: 730px;
+  }
 `;
 
 const Title = styled.div`
@@ -113,7 +127,6 @@ const NavElement = styled.div`
   margin: auto;
   align-items: center;
   text-align: center;
-
   color: #989898;
 
   a {
@@ -123,7 +136,7 @@ const NavElement = styled.div`
     :hover {
       padding: 5px 10px;
       border-radius: 4px;
-      background: grey;
+      background: darkslategray;
       color: whitesmoke;
     }
   }

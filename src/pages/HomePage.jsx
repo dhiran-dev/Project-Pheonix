@@ -3,8 +3,15 @@ import styled from "styled-components";
 import Arrow from "../assets/Arrow_1.png";
 // import "./HomePage.css";
 import Icon from "../assets/Fire_icon.png";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const navigateHandler = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
   return (
     <Container>
       <TopSection>
@@ -29,21 +36,21 @@ const HomePage = () => {
             </Circle>
             <Text>Set Goal</Text>
           </InfoContent>
-          <img src={Arrow} />
+          <img src={Arrow} className="arrow" />
           <InfoContent>
             <Circle>
               <Number>2</Number>
             </Circle>
             <Text>Update Daily Progress</Text>
           </InfoContent>
-          <img src={Arrow} />
+          <img src={Arrow} className="arrow" />
           <InfoContent>
             <Circle>
               <Number>3</Number>
             </Circle>
             <Text>Track Progress</Text>
           </InfoContent>
-          <img src={Arrow} />
+          <img src={Arrow} className="arrow" />
           <InfoContent>
             <Circle>
               <Number>4</Number>
@@ -52,7 +59,7 @@ const HomePage = () => {
           </InfoContent>
         </InfoSection>
         <ButtonSection>
-          <StartButton>
+          <StartButton type="submit" onClick={navigateHandler}>
             <TextSpan>Let's get Started</TextSpan>
             <ButtonIcon src={Icon} />
           </StartButton>
@@ -98,6 +105,14 @@ const InfoSection = styled.div`
   height: 70%;
   margin: auto;
   display: flex;
+
+  .arrow {
+    width: 133px;
+    height: 30px;
+    position: relative;
+    top: -15%;
+    margin: auto -200px;
+  }
 `;
 
 const ButtonSection = styled.div`
@@ -194,6 +209,7 @@ const ButtonIcon = styled.img`
   position: relative;
   top: -3%;
   left: 1%;
+  margin: auto -200px;
 `;
 
 const TitleSection = styled.div`

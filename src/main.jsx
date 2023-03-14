@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import SetGoal from "./pages/SetGoal";
+import TrackGoal from "./pages/TrackGoal";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/setgoal",
     element: <SetGoal />,
+  },
+  {
+    path: "/trackgoal",
+    element: <TrackGoal />,
   },
 ]);
 

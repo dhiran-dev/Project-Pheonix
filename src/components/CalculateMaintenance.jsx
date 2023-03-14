@@ -1,8 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import Calculate from "../assets/Calculate.png";
+import { useState } from "react";
 
-const CalculateMaintenance = () => {
+const CalculateMaintenance = ({ setWeight, setActivity, calcMaintainance }) => {
+  const [Localweight, setLocalweight] = useState("");
+  const [LocalActivity, setLocalActivity] = useState("");
+
+  const handleWeightChange = (e) => {
+    setLocalweight(e.target.value);
+    setWeight(Localweight);
+    // console.log(setWeight);
+  };
   return (
     <Container>
       <Card>
@@ -12,7 +21,15 @@ const CalculateMaintenance = () => {
             <label name="weight" htmlFor="weight">
               Current Weight (Kg)
             </label>
-            <input name="weight" id="weight" type="number" min="40" max="200" />
+            <input
+              name="weight"
+              id="weight"
+              type="number"
+              min="40"
+              max="200"
+              // onChange={handleCurrentWeight}
+              onChange={handleWeightChange}
+            />
             <p>Min-40Kg to Max - 200Kg</p>
           </InputField>
 
@@ -20,17 +37,23 @@ const CalculateMaintenance = () => {
             <label name="Activity" htmlFor="Activity">
               Activity level
             </label>
-            <select name="Activity" id="Activity">
-              <option value="10">Sedentary (No Workout)</option>
-              <option value="12">
-                Moderately Active(Once or twice per week)
+            <select
+              name="Activity"
+              id="Activity"
+              // onChange={handleActivitylevel}
+            >
+              <option value="0">Select</option>
+              <option value="13">Sedentary (No Workout)</option>
+              <option value="14">
+                Moderately Active(1 or 3 times per week)
               </option>
-              <option value="15">Very Active (Daily workout)</option>
+              <option value="16">Very Active (Daily workout)</option>
             </select>
             <p>Daily Activity level</p>
           </InputField>
           <InputField>
             <CalculateButton>
+              {/* onClick={calculateMaintainence} */}
               Calculate
               <CalculateIcon src={Calculate} />
             </CalculateButton>
@@ -49,12 +72,15 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 27.5%;
+  @media screen and (min-width: 1200px) {
+    min-height: 250px;
+  }
 `;
 
 const Card = styled.div`
   width: 90%;
   height: 90%;
-  border: 1px solid white;
+  border: 1px solid teal;
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -74,6 +100,14 @@ const Title = styled.h3`
   margin-left: 30px;
   margin-bottom: 10px;
   margin-top: 20px;
+
+  @media screen and (min-width: 1200px) {
+    min-width: 600px;
+    min-height: 80px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+    font-size: 30px;
+  }
 `;
 
 const FormSection = styled.form`
@@ -94,6 +128,10 @@ const FormSection = styled.form`
     width: 120px;
     font-size: 26px;
     text-align: center;
+
+    @media screen and (min-width: 1200px) {
+      width: 110px;
+    }
   }
 
   label {
@@ -105,8 +143,11 @@ const FormSection = styled.form`
     display: flex;
     align-items: center;
     text-align: center;
-
     color: #c2c0c0;
+
+    @media screen and (min-width: 1200px) {
+      font-size: 20px;
+    }
   }
 
   p {
@@ -118,8 +159,11 @@ const FormSection = styled.form`
     display: flex;
     align-items: center;
     text-align: center;
-
     color: #c2c0c0;
+
+    @media screen and (min-width: 1200px) {
+      margin-top: 5px;
+    }
   }
 
   select {
@@ -132,6 +176,12 @@ const FormSection = styled.form`
     text-align: center;
     margin-top: 10px;
     width: 150px;
+
+    @media screen and (min-width: 1200px) {
+      font-size: 20px;
+      height: 70px;
+      width: 120px;
+    }
   }
 `;
 
