@@ -6,13 +6,18 @@ import UpdateProgress from "../components/UpdateProgress";
 import Progress from "../components/Progress";
 import ViewLogs from "../components/ViewLogs";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const TrackGoal = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace={true} />;
-  }
+  const navigate = useNavigate();
+  const { loading, userID, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!userID) {
+      navigate("/login");
+    }
+  }, [navigate, userID]);
   return (
     <Container>
       <Header />

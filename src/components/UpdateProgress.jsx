@@ -1,35 +1,125 @@
 import React from "react";
 import styled from "styled-components";
 import logicon from "../assets/createlog.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import {
+  updateDate,
+  updateWeight,
+  updateCaloriesburnt,
+  updateIntake,
+  updateIntermittent,
+} from "../features/createLog/CreateLog";
+import axios from "axios";
 
 const UpdateProgress = () => {
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
+  const [createGoalState, setCreateGoalState] = useState(false);
+  const date = useSelector((state) => state.log.date);
+  const weight = useSelector((state) => state.log.weight);
+  const caloriesBurnt = useSelector((state) => state.log.caloriesburnt);
+  const CalorieIntake = useSelector((state) => state.log.intake);
+  const Intermittent = useSelector((state) => state.log.intermittent);
 
-  const handleCreateLog = (e) => {
-    e.PreventDefault();
-    console.log(user);
-    console.log(token);
+  const handleDate = (e) => {
+    console.log(e.target.value);
+    dispatch(updateDate(e.target.value));
   };
+
+  const handleWeight = (e) => {
+    console.log(e.target.value);
+    dispatch(updateWeight(e.target.value));
+  };
+
+  const handleCaloriesBurnt = (e) => {
+    console.log(e.target.value);
+    dispatch(updateCaloriesburnt(e.target.value));
+  };
+
+  const handleIntake = (e) => {
+    console.log(e.target.value);
+    dispatch(updateIntake(e.target.value));
+  };
+
+  const handleIntermittent = (e) => {
+    console.log(e.target.value);
+    dispatch(updateIntermittent(e.target.value));
+  };
+
+  const handleCreateLog = (event) => {
+    event.preventDefault();
+    setCreateGoalState(true);
+  };
+
+  useEffect(() => {
+    async function createGoal() {
+      try {
+        const userid = localStorage.getItem("userID");
+        const authheader = localStorage.getItem("userToken");
+        const data = {
+          userID: userid,
+          date,
+          weight,
+          caloriesBurnt,
+          CalorieIntake,
+          Intermittent,
+        };
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            authheader: authheader,
+            userid: userid,
+          },
+        };
+        // console.log(config);
+        const response = await axios.post(
+          "http://localhost:8080/api/logs/create-log",
+          data,
+          config
+        );
+        console.log(response.data.message);
+        if (response.status === 200) {
+          window.alert("Log created successfully");
+        }
+        return response;
+      } catch (error) {
+        console.log(error, "error has been occures, dhiran");
+        console.log(error.response);
+        const errorMessage = error.response.data.message || "An error occurred";
+        window.alert(errorMessage);
+      }
+    }
+    if (createGoalState) {
+      createGoal();
+      setCreateGoalState(false);
+    }
+  }, [createGoalState]);
 
   return (
     <Container>
       <Card>
         <Title>Update your progress</Title>
-        <FormSection>
+        <FormSection onSubmit={handleCreateLog}>
           <InputField>
             <label name="date" htmlFor="date">
               Date
             </label>
-            <input name="date" id="date" type="date" />
+            <input name="date" id="date" type="date" onChange={handleDate} />
             <p>Select date</p>
           </InputField>
           <InputField>
             <label name="weight" htmlFor="weight">
               Current Weight (Kg)
             </label>
-            <input name="weight" id="weight" type="number" min="40" max="200" />
+            <input
+              name="weight"
+              id="weight"
+              type="number"
+              min="40"
+              max="200"
+              onChange={handleWeight}
+            />
             <p>Weight in empty stomach</p>
           </InputField>
           <InputField>
@@ -42,6 +132,7 @@ const UpdateProgress = () => {
               type="number"
               min="0"
               max="3000"
+              onChange={handleCaloriesBurnt}
             />
             <p>Active Calories burnt for the date selected</p>
           </InputField>
@@ -56,6 +147,7 @@ const UpdateProgress = () => {
               type="number"
               min="0"
               max="3000"
+              onChange={handleIntake}
             />
             <p>Intake followed from goal created</p>
           </InputField>
@@ -64,14 +156,23 @@ const UpdateProgress = () => {
             <label name="Intermittent" htmlFor="Intermittent">
               Intermittent Fasting
             </label>
-            <select name="Intermittent" id="Intermittent">
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+            <select
+              name="Intermittent"
+              id="Intermittent"
+              onChange={handleIntermittent}
+              defaultValue=""
+              required
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
             </select>
             <p>Followed Intermittent Fasting?</p>
           </InputField>
           <InputField2>
-            <LogButton onClick={handleCreateLog}>
+            <LogButton type="submit">
               Create Log
               <Logo src={logicon} />
             </LogButton>

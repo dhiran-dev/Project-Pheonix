@@ -31,7 +31,7 @@ const CalculateMaintenance = () => {
     console.log(CalculatedMaintainance.toFixed(1));
     dispatch(updateMaintainance(CalculatedMaintainance.toFixed(1)));
     console.log(user);
-    console.log(token);
+  
   };
 
   return (

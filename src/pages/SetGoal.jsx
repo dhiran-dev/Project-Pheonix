@@ -6,12 +6,23 @@ import Header from "../components/Header";
 import InfoSection from "../components/InfoSection";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { userLogin } from "../features/actions/authActions";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const SetGoal = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace={true} />;
-  }
+  const navigate = useNavigate();
+  const { loading, userID, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!userID) {
+      navigate("/login");
+    }
+  }, [navigate, userID]);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // if (!isAuthenticated) {
+  //   return <Navigate to="/login" replace={true} />;
+  // }
 
   return (
     <Container>

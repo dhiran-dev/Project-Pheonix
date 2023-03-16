@@ -9,9 +9,10 @@ import { logoutSuccess } from "../features/auth/authSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
+
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userID");
     dispatch(logoutSuccess());
   };
   return (
