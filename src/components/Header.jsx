@@ -1,13 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import Pheonix from "../assets/phoenix.png";
-import settings from "../assets/settings_icon.png";
+// import settings from "../assets/settings_icon.png";
 import { NavLink } from "react-router-dom";
 // import "./Header.css";
+import { useDispatch } from "react-redux";
+import { logoutSuccess } from "../features/auth/authSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    dispatch(logoutSuccess());
   };
   return (
     <Container>
@@ -46,11 +51,11 @@ const Header = () => {
             Track Progress
           </NavLink>
         </NavElement>
-        <NavElement>
+        {/* <NavElement>
           <NavLink to="/settings" className="settings">
             <Settings src={settings} />
           </NavLink>
-        </NavElement>
+        </NavElement> */}
         <NavElement>
           <NavLink to="/" onClick={handleLogout}>
             Log out

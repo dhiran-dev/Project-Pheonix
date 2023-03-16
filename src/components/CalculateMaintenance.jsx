@@ -13,6 +13,8 @@ const CalculateMaintenance = () => {
   const dispatch = useDispatch();
   const currentWeight = useSelector((state) => state.goal.currentWeight);
   const activityLevel = useSelector((state) => state.goal.activityLevel);
+  const user = useSelector((state) => state.auth.userID);
+  const token = useSelector((state) => state.auth.token);
 
   const handleCurrentWeightChange = (event) => {
     dispatch(updateCurrentWeight(event.target.value));
@@ -28,6 +30,8 @@ const CalculateMaintenance = () => {
     const CalculatedMaintainance = currentWeight * 2.2 * activityLevel;
     console.log(CalculatedMaintainance.toFixed(1));
     dispatch(updateMaintainance(CalculatedMaintainance.toFixed(1)));
+    console.log(user);
+    console.log(token);
   };
 
   return (

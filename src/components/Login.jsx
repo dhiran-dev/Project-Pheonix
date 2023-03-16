@@ -1,12 +1,22 @@
 import React from "react";
 import "./Login.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import signupicon from "../assets/signup_icon.png";
 import signinicon from "../assets/signin_icon.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../features/auth/authSlice";
+// import { loginUser } from "../features/auth/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.userID);
+  const token = useSelector((state) => state.auth.token);
+  let initial = true;
+  let tempToken = "";
+  let userId = "";
+
   let strength = 0;
   let validations = [];
   const [PassStrenght, setPassStrenght] = useState(0);
@@ -85,11 +95,13 @@ const Login = () => {
     const data = await response.json();
 
     if (data.status === "ok") {
-      navigate("/setgoal");
+      alert("signup successful, Please login now with your credentials");
+      navigate("/login");
     } else {
-      alert("Duplicate email, please sign up with unique credentials");
+      alert(
+        "Email already exists, please sign up with unique credentials or login with existing email"
+      );
     }
-
     console.log(data);
   };
 
@@ -108,15 +120,37 @@ const Login = () => {
     });
 
     const data = await response.json();
-    if (data.accessToken) {
-      localStorage.setItem("token", data.accessToken);
+    if (data.accessToken && data._id) {
+      tempToken = data.accessToken;
+      userId = data._id;
+      initial = false;
+      localStorage.setItem("token", tempToken);
       alert("login successful");
+      dispatch(loginSuccess({ token: tempToken, userID: userId }));
       navigate("/trackgoal");
     } else {
       alert("Please check your username and password");
     }
-    console.log(data.accessToken);
+
+    console.log(user);
+    console.log(tempToken);
+    console.log(token);
   };
+
+  // const loginHandler = async (e) => {
+  //   e.preventDefault();
+  //   const user = {
+  //     userEmail,
+  //     userPassword,
+  //   };
+  //   try {
+  //     await dispatch(loginUser(user));
+  //     alert("Login successful");
+  //     navigate("/trackgoal");
+  //   } catch (error) {
+  //     alert("Please check your username and password");
+  //   }
+  // };
 
   return (
     <>

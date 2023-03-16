@@ -1,8 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import logicon from "../assets/createlog.png";
+import { useSelector } from "react-redux";
 
 const UpdateProgress = () => {
+  const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
+
+  const handleCreateLog = (e) => {
+    e.PreventDefault();
+    console.log(user);
+    console.log(token);
+  };
+
   return (
     <Container>
       <Card>
@@ -61,7 +71,7 @@ const UpdateProgress = () => {
             <p>Followed Intermittent Fasting?</p>
           </InputField>
           <InputField2>
-            <LogButton>
+            <LogButton onClick={handleCreateLog}>
               Create Log
               <Logo src={logicon} />
             </LogButton>
@@ -80,7 +90,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
- margin-bottom : -40px;
+  margin-bottom: -40px;
 `;
 
 const Card = styled.div`
