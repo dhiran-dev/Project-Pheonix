@@ -1,19 +1,88 @@
 import React from "react";
 import styled from "styled-components";
 import setgoal from "../assets/setgoal.png";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const InfoSection = () => {
+  const maintainance = useSelector((state) => state.goal.maintainance);
+  const goalCalories = useSelector((state) => state.goal.goalCalories);
+  const goalWeight = useSelector((state) => state.goal.goalweight);
+  const currentWeight = useSelector((state) => state.goal.currentWeight);
+  const rate = useSelector((state) => state.goal.rate);
+  const [isFetching, setisFetching] = useState(false);
+
+  useEffect(() => {
+    async function postGoal() {
+      try {
+        const userid = localStorage.getItem("userID");
+        const authheader = localStorage.getItem("userToken");
+        const data = {
+          userID: userid,
+          maintainance,
+          goalCalories,
+          goalWeight,
+          currentWeight,
+          rate,
+        };
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            authheader: authheader,
+            userid: userid,
+          },
+        };
+        // console.log(config);
+        const response = await axios.post(
+          "http://localhost:8080/api/goal/latest-goal",
+          data,
+          config
+        );
+        console.log(response.data.message);
+        if (response.status === 201) {
+          window.alert("Goal has been set successfully.");
+        } else if (response.status === 400) {
+          console.log(response.data.message);
+          window.alert(response.data.message);
+        } else {
+          alert(`Unexpected response status: ${response.status}`);
+          console.log(`Unexpected response status: ${response.status}`);
+        }
+        return response;
+      } catch (error) {
+        console.log(error.response);
+        const errorMessage = error.response.data.message || "An error occurred";
+        window.alert(errorMessage);
+      }
+    }
+    if (isFetching) {
+      postGoal();
+      setisFetching(false);
+    }
+  }, [isFetching]);
+
+  const sendGoaltoBackend = (e) => {
+    e.preventDefault();
+    setisFetching(true);
+  };
   return (
     <Container>
       <InputField1>
-        Your Maintenance Calories for the week is <input />
+        Your Maintenance Calories for the week is{" "}
+        <input type="text" value={maintainance} readOnly />
       </InputField1>
       <InputField2>
-        <input /> Calories to be burned in this week including 1 rest days and 6
-        active days. You should burn <input /> Calories for a day, you might
-        reach <input /> goal weight of the week
+        <input type="text" value={goalCalories} readOnly /> Calories to be
+        burned in this week including 1 rest days and 6 active days. You should
+        burn{" "}
+        <input type="text" value={(goalCalories / 6).toFixed(1)} readOnly />
+        Calories for a day, you might reach{" "}
+        <input type="text" value={goalWeight} readOnly /> goal weight of the
+        week
       </InputField2>
-      <SetGoalButton>
+      <SetGoalButton onClick={sendGoaltoBackend}>
         Set Goal
         <SetGoalIcon src={setgoal} />
       </SetGoalButton>

@@ -1,17 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 import Calculate from "../assets/Calculate.png";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {
+  updateCurrentWeight,
+  updateActivityLevel,
+  updateMaintainance,
+} from "../features/goal/goalSlice";
 
-const CalculateMaintenance = ({ setWeight, setActivity, calcMaintainance }) => {
-  const [Localweight, setLocalweight] = useState("");
-  const [LocalActivity, setLocalActivity] = useState("");
+const CalculateMaintenance = () => {
+  const dispatch = useDispatch();
+  const currentWeight = useSelector((state) => state.goal.currentWeight);
+  const activityLevel = useSelector((state) => state.goal.activityLevel);
+  const user = useSelector((state) => state.auth.userID);
+  const token = useSelector((state) => state.auth.token);
 
-  const handleWeightChange = (e) => {
-    setLocalweight(e.target.value);
-    setWeight(Localweight);
-    // console.log(setWeight);
+  const handleCurrentWeightChange = (event) => {
+    dispatch(updateCurrentWeight(event.target.value));
   };
+
+  const handleActivityLevelChange = (event) => {
+    dispatch(updateActivityLevel(event.target.value));
+  };
+
+  const calculateMaintainence = (e) => {
+    e.preventDefault();
+
+    const CalculatedMaintainance = currentWeight * 2.2 * activityLevel;
+    console.log(CalculatedMaintainance.toFixed(1));
+    dispatch(updateMaintainance(CalculatedMaintainance.toFixed(1)));
+    console.log(user);
+  
+  };
+
   return (
     <Container>
       <Card>
@@ -27,8 +49,7 @@ const CalculateMaintenance = ({ setWeight, setActivity, calcMaintainance }) => {
               type="number"
               min="40"
               max="200"
-              // onChange={handleCurrentWeight}
-              onChange={handleWeightChange}
+              onChange={handleCurrentWeightChange}
             />
             <p>Min-40Kg to Max - 200Kg</p>
           </InputField>
@@ -40,9 +61,11 @@ const CalculateMaintenance = ({ setWeight, setActivity, calcMaintainance }) => {
             <select
               name="Activity"
               id="Activity"
-              // onChange={handleActivitylevel}
+              onChange={handleActivityLevelChange}
             >
-              <option value="0">Select</option>
+              <option value="0" disabled selected>
+                Select
+              </option>
               <option value="13">Sedentary (No Workout)</option>
               <option value="14">
                 Moderately Active(1 or 3 times per week)
@@ -52,13 +75,18 @@ const CalculateMaintenance = ({ setWeight, setActivity, calcMaintainance }) => {
             <p>Daily Activity level</p>
           </InputField>
           <InputField>
-            <CalculateButton>
-              {/* onClick={calculateMaintainence} */}
+            <CalculateButton onClick={calculateMaintainence}>
               Calculate
               <CalculateIcon src={Calculate} />
             </CalculateButton>
           </InputField>
         </FormSection>
+        {console.log(
+          "Current weight is ",
+          currentWeight,
+          "Current Activity level is",
+          activityLevel
+        )}
       </Card>
     </Container>
   );

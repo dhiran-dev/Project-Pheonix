@@ -4,36 +4,30 @@ import CalculateGoal from "../components/CalculateGoal";
 import CalculateMaintenance from "../components/CalculateMaintenance";
 import Header from "../components/Header";
 import InfoSection from "../components/InfoSection";
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { userLogin } from "../features/actions/authActions";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const SetGoal = () => {
-  const [currentWeight, setCurrentWeight] = useState("");
-  const [Actvitylevel, setActivitylevel] = useState("");
+  const navigate = useNavigate();
+  const { loading, userID, error } = useSelector((state) => state.auth);
 
-  const handleCurrentWeight = (setWeightChild) => {
-    setCurrentWeight(setWeightChild);
-  };
+  useEffect(() => {
+    if (!userID) {
+      navigate("/login");
+    }
+  }, [navigate, userID]);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // if (!isAuthenticated) {
+  //   return <Navigate to="/login" replace={true} />;
+  // }
 
-  const handleActivitylevel = (setActivityChild) => {
-    setActivitylevel(setActivityChild);
-    console.log(setActivityChild);
-  };
-
-  const calculateMaintainence = (e) => {
-    e.preventDefault();
-    console.log(currentWeight);
-    console.log(Actvitylevel);
-    const Maintainance = currentWeight * 2.2 * Actvitylevel;
-    console.log(Maintainance);
-  };
   return (
     <Container>
       <Header />
-      <CalculateMaintenance
-        setWeight={handleCurrentWeight}
-        setActivity={handleActivitylevel}
-        calcMaintainance={calculateMaintainence}
-      />
+      <CalculateMaintenance />
       <CalculateGoal />
       <InfoSection />
     </Container>

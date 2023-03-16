@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -8,6 +8,10 @@ import HomePage from "./pages/HomePage";
 import SetGoal from "./pages/SetGoal";
 import TrackGoal from "./pages/TrackGoal";
 
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+// import { store, persistor } from "./store";
+import store from "./store";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -28,5 +32,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    {/* <PersistGate loading={null} persistor={persistor}> */}
+      <RouterProvider router={router} />
+    {/* </PersistGate> */}
+  </Provider>
 );

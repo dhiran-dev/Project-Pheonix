@@ -1,12 +1,21 @@
 import React from "react";
 import "./Login.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import signupicon from "../assets/signup_icon.png";
 import signinicon from "../assets/signin_icon.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../features/actions/authActions";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const user = useSelector((state) => state.auth.userID);
+  // const token = useSelector((state) => state.auth.token);
+  // let initial = true;
+  let tempToken = "";
+  let userId = "";
+
   let strength = 0;
   let validations = [];
   const [PassStrenght, setPassStrenght] = useState(0);
@@ -14,6 +23,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const { loading, userID, error, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
 
   const validatePassword = (e) => {
     const password = e.target.value;
@@ -85,37 +97,72 @@ const Login = () => {
     const data = await response.json();
 
     if (data.status === "ok") {
-      navigate("/setgoal");
+      alert("signup successful, Please login now with your credentials");
+      navigate("/login");
     } else {
-      alert("Duplicate email, please sign up with unique credentials");
+      alert(
+        "Email already exists, please sign up with unique credentials or login with existing email"
+      );
     }
-
     console.log(data);
   };
 
   //Handle Login functionality
-  const loginHandler = async (e) => {
-    e.preventDefault();
-    const response = await fetch("http://localhost:8080/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userEmail,
-        userPassword,
-      }),
-    });
+  // const loginHandler = async (e) => {
+  //   e.preventDefault();
+  //   const response = await fetch("http://localhost:8080/api/auth/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       userEmail,
+  //       userPassword,
+  //     }),
+  //   });
 
-    const data = await response.json();
-    if (data.accessToken) {
-      localStorage.setItem("token", data.accessToken);
-      alert("login successful");
+  //   const data = await response.json();
+  //   if (data.accessToken && data._id) {
+  //     tempToken = data.accessToken;
+  //     userId = data._id;
+  //     initial = false;
+  //     localStorage.setItem("token", tempToken);
+  //     alert("login successful");
+  //     dispatch(loginSuccess({ token: tempToken, userID: userId }));
+  //     navigate("/trackgoal");
+  //   } else {
+  //     alert("Please check your username and password");
+  //   }
+
+  //   console.log(user);
+  //   console.log(tempToken);
+  //   console.log(token);
+  // };
+
+  // const loginHandler = async (e) => {
+  //   e.preventDefault();
+  //   const user = {
+  //     userEmail,
+  //     userPassword,
+  //   };
+  //   try {
+  //     await dispatch(loginUser(user));
+  //     alert("Login successful");
+  //     navigate("/trackgoal");
+  //   } catch (error) {
+  //     alert("Please check your username and password");
+  //   }
+  // };
+
+  useEffect(() => {
+    if (userID) {
       navigate("/trackgoal");
-    } else {
-      alert("Please check your username and password");
     }
-    console.log(data.accessToken);
+  }, [navigate, userID]);
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+    dispatch(userLogin({ userEmail, userPassword }));
   };
 
   return (
