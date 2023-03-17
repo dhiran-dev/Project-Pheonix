@@ -22,7 +22,7 @@ const TrackGoal = () => {
     <Container>
       <Header />
       <UpdateProgress />
-      <Progress />
+      {/* <Progress /> */}
       <ViewLogs />
     </Container>
   );

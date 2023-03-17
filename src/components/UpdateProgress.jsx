@@ -84,7 +84,7 @@ const UpdateProgress = () => {
         }
         return response;
       } catch (error) {
-        console.log(error, "error has been occures, dhiran");
+ 
         console.log(error.response);
         const errorMessage = error.response.data.message || "An error occurred";
         window.alert(errorMessage);
@@ -184,22 +184,24 @@ const UpdateProgress = () => {
 };
 
 const Container = styled.div`
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 34%;
+  padding-bottom: 0;
+  width: 95vw;
+  height: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: -40px;
+  margin-bottom : 30px;
+  margin-top : 10px;
+  /* margin-bottom: -40px;
+  padding-bottom: -30px; */
 `;
 
 const Card = styled.div`
   width: 95%;
-  height: 75%;
+  height: 100%;
   border: 0.5px solid darkslategray;
   border-radius: 10px;
-  margin-top: 15px;
+  margin: auto;
 `;
 
 const Title = styled.h3`

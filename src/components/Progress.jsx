@@ -1,11 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import "./Progress.css";
 
 const Progress = () => {
+  const refreshData = useSelector((state) => state.log.refreshData);
+  console.log(refreshData);
+  const goalWeight = refreshData.goalWeight;
+  const lastUpdatedWeight = +refreshData.LastUpdatedWeight;
+  const startingWeight = +refreshData.startingWeight;
+  console.log(goalWeight, lastUpdatedWeight, startingWeight);
+  const weightDifference = startingWeight - goalWeight;
+  const progress = startingWeight - lastUpdatedWeight;
+  const percentage = (progress / weightDifference) * 100;
+  console.log(percentage, progress, weightDifference);
   return (
     <Container>
       <Title>Goal Progress: </Title>
-      <ProgressBar></ProgressBar>
+      <ProgressBar>
+        <div className="progress-bar">
+          <div
+            className="progress-bar__fill"
+            style={{ width: `${percentage}%` }}
+          ></div>
+        </div>
+      </ProgressBar>
     </Container>
   );
 };

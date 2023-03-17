@@ -6,6 +6,7 @@ const initialState = {
   caloriesburnt: "",
   intake: "",
   intermittent: "",
+  refreshData: {},
 };
 
 const logSlice = createSlice({
@@ -27,6 +28,9 @@ const logSlice = createSlice({
     updateIntermittent: (state, action) => {
       state.intermittent = action.payload;
     },
+    updateRefreshData: (state, action) => {
+      state.refreshData = action.payload;
+    },
   },
 });
 
@@ -36,6 +40,7 @@ export const {
   updateCaloriesburnt,
   updateIntake,
   updateIntermittent,
+  updateRefreshData,
 } = logSlice.actions;
 
 export default logSlice.reducer;
