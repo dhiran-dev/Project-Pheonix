@@ -100,11 +100,11 @@ const Container = styled.div`
   align-items: center;
   margin: 40px;
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (max-width: 1536px) {
     margin: 0;
     padding: 0;
     position: relative;
-    top: -20px;
+    top: -30px;
   }
 `;
 const InputField1 = styled.div`
@@ -112,15 +112,13 @@ const InputField1 = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 28px;
-
   color: #bababa;
-  /* margin-top: -60px;
-  margin-bottom: 0px; */
+  margin-bottom: -40px;
 
-  @media screen and (min-width: 1200px) {
-    font-size : 24px;
-    margin-bottom : -30px;
-    font-weight: 200;
+  @media screen and (max-width: 1536px) {
+  font-size : 24px;
+  font-weight : 200px;
+  margin-bottom: 0
   }
   }
 
@@ -135,7 +133,7 @@ const InputField1 = styled.div`
     font-size: 20px;
     text-align: center;
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (max-width: 1536px) {
     height : 35px;
     width : 65px;
   }
@@ -152,9 +150,10 @@ const InputField2 = styled.div`
   color: #bababa;
   max-width: 892px;
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (max-width: 1536px) {
     font-size: 24px;
     font-weight: 200;
+    margin-bottom: 15px;
   }
 
   input {

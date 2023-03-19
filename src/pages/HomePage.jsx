@@ -16,14 +16,14 @@ const HomePage = () => {
     <Container>
       <TopSection>
         <TitleSection>
-          <Title>Project Pheonix</Title>
+          <Title>Project Phoenix</Title>
         </TitleSection>
         <SubTitle>
-          Resurrect yourself to be the best version of yourself by exploring
+          Resurrect to be the best version of yourself by exploring
           your fitness!
         </SubTitle>
         <Description>
-          Project Pheonix is the right tool to track & update your fitness
+          Project Phoenix is the right tool to track & update your fitness
           progress on a weekly basis keeping you updated about your upcoming
           weight loss goals
         </Description>
@@ -75,6 +75,25 @@ const Container = styled.div`
   background: black;
   margin: auto;
   margin-top: 40px;
+  padding: 0 20px;
+  display : flex;
+  flex-direction : column;
+  justify-content : center;
+  align-items : center;
+
+  @media screen and (max-width: 1536px) {
+    width: 80%;
+    margin-top: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 60vw;
+    max-width: 800px;
+    padding: 0;
+  }
+  @media screen and (max-width: 1024px) {
+    width: 50vw;
+  }
 `;
 
 const TopSection = styled.div`
@@ -113,6 +132,11 @@ const InfoSection = styled.div`
     top: -15%;
     margin: auto -200px;
   }
+
+  @media screen and (max-width: 1536px) {
+  margin-top : 20px;
+  
+  }
 `;
 
 const ButtonSection = styled.div`
@@ -123,6 +147,10 @@ const ButtonSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 1536px) {
+  margin-top : 20px;
+  
+  }
 `;
 
 const InfoContent = styled.div`
@@ -146,6 +174,11 @@ const Circle = styled.div`
   text-align: center;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 1536px) {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const Number = styled.span`
@@ -159,6 +192,12 @@ const Number = styled.span`
   line-height: 77px;
 
   color: #000000;
+
+  @media screen and (max-width: 1536px) {
+    top: 0;
+    font-weight: 700;
+    font-size: 50px;
+  }
 `;
 
 const Text = styled.div`
@@ -172,6 +211,13 @@ const Text = styled.div`
   width: 100%;
   text-align: center;
   margin: auto;
+
+  @media screen and (max-width: 1536px) {
+  margin-top : 20px;
+  font-weight: 400;
+  font-size: 30px;
+  
+  }
 `;
 
 const StartButton = styled.button`
@@ -233,6 +279,11 @@ const Title = styled.h1`
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media screen and (max-width: 1536px) {
+    font-weight: 700;
+    font-size: 60px;
+  }
 `;
 
 const SubTitle = styled.h3`
@@ -250,6 +301,10 @@ const SubTitle = styled.h3`
   text-align: center;
 
   color: #c1c1c1;
+
+  @media screen and (max-width: 1536px) {
+    font-size: 35px;
+  }
 `;
 
 const Description = styled.p`
@@ -265,5 +320,9 @@ const Description = styled.p`
   text-align: center;
 
   color: #c1c1c1;
+
+  @media screen and (max-width: 1536px) {
+    font-size: 25px;
+  }
 `;
 export default HomePage;

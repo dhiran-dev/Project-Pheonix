@@ -84,7 +84,6 @@ const UpdateProgress = () => {
         }
         return response;
       } catch (error) {
- 
         console.log(error.response);
         const errorMessage = error.response.data.message || "An error occurred";
         window.alert(errorMessage);
@@ -105,7 +104,13 @@ const UpdateProgress = () => {
             <label name="date" htmlFor="date">
               Date
             </label>
-            <input name="date" id="date" type="date" onChange={handleDate} />
+            <input
+              name="date"
+              id="date"
+              type="date"
+              onChange={handleDate}
+              required
+            />
             <p>Select date</p>
           </InputField>
           <InputField>
@@ -119,6 +124,8 @@ const UpdateProgress = () => {
               min="40"
               max="200"
               onChange={handleWeight}
+              required
+              step="0.1"
             />
             <p>Weight in empty stomach</p>
           </InputField>
@@ -133,6 +140,7 @@ const UpdateProgress = () => {
               min="0"
               max="3000"
               onChange={handleCaloriesBurnt}
+              required
             />
             <p>Active Calories burnt for the date selected</p>
           </InputField>
@@ -148,6 +156,7 @@ const UpdateProgress = () => {
               min="0"
               max="3000"
               onChange={handleIntake}
+              required
             />
             <p>Intake followed from goal created</p>
           </InputField>
@@ -190,10 +199,19 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom : 30px;
-  margin-top : 10px;
+  margin-bottom: 30px;
+  margin-top: 10px;
   /* margin-bottom: -40px;
   padding-bottom: -30px; */
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
+
+  @media screen and (max-width: 1536px) {
+    height: 280px;
+    margin-bottom: 20px;
+  }
 `;
 
 const Card = styled.div`
@@ -228,6 +246,11 @@ const FormSection = styled.form`
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
   input {
     height: 50px;
     border: 1px solid white;
@@ -241,6 +264,11 @@ const FormSection = styled.form`
     display: flex;
     justify-content: center;
     text-align: center;
+
+    @media screen and (max-width: 1536px) {
+      height: 50px;
+     
+    }
   }
 
   label {
@@ -265,6 +293,12 @@ const FormSection = styled.form`
     align-items: center;
     text-align: center;
     color: #c2c0c0;
+
+    @media screen and (max-width: 1536px) {
+    height: 60px;
+    margin-bottom : 0;
+    margin-top : 0;
+  }
   }
 
   select {
@@ -277,6 +311,10 @@ const FormSection = styled.form`
     text-align: center;
     margin-top: 10px;
     width: 150px;
+
+    @media screen and (max-width: 1536px) {
+      height: 55px;
+    }
   }
 `;
 
@@ -287,6 +325,15 @@ const InputField = styled.div`
   justify-content: center;
   align-items: center;
   height: 150px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1536px) {
+    height: 200px;
+    margin-bottom : 0;
+  }
 `;
 
 const InputField2 = styled.div`
@@ -337,8 +384,6 @@ const Logo = styled.img`
   width: 30px;
   height: 30px;
   position: relative;
-  top: -17px;
-  left: 205px;
 `;
 
 export default UpdateProgress;

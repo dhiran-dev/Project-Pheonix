@@ -31,6 +31,14 @@ const logSlice = createSlice({
     updateRefreshData: (state, action) => {
       state.refreshData = action.payload;
     },
+    updatelogaLogout: (state) => {
+      state.date = "";
+      state.weight = "";
+      state.caloriesburnt = "";
+      state.intake = "";
+      state.intermittent = "";
+      state.refreshData = {};
+    },
   },
 });
 
@@ -41,6 +49,7 @@ export const {
   updateIntake,
   updateIntermittent,
   updateRefreshData,
+  updatelogaLogout,
 } = logSlice.actions;
 
 export default logSlice.reducer;

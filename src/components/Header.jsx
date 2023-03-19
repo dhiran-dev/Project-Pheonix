@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Pheonix from "../assets/phoenix.png";
-// import settings from "../assets/settings_icon.png";
+import settings from "../assets/settings_icon.png";
 import { NavLink } from "react-router-dom";
 // import "./Header.css";
 import { useDispatch } from "react-redux";
 import { logoutSuccess } from "../features/auth/authSlice";
+import { updatelogaLogout } from "../features/createLog/CreateLog";
+import { updatelogoutGoal } from "../features/goal/goalSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -13,6 +15,9 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userID");
+    dispatch(updatelogaLogout());
+    dispatch(updatelogoutGoal());
+    alert("You have been logged out successfully");
     dispatch(logoutSuccess());
   };
   return (

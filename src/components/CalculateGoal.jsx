@@ -39,12 +39,19 @@ const CalculateGoal = () => {
     <Container>
       <Card>
         <Title>Choose your goal</Title>
-        <FormSection>
+        <FormSection onSubmit={CalculateDefecit}>
+        <InputField>
+        </InputField>
           <InputField>
             <label name="rate" htmlFor="rate">
               Rate of weight loss expected
             </label>
-            <select name="rate" id="rate" onChange={handleRateLevelChange}>
+            <select
+              name="rate"
+              id="rate"
+              onChange={handleRateLevelChange}
+              required
+            >
               <option value="" disabled selected>
                 select
               </option>
@@ -55,7 +62,7 @@ const CalculateGoal = () => {
             <p>1% of Current Wt is recommended per week</p>
           </InputField>
           <InputField>
-            <CalculateButton onClick={CalculateDefecit}>
+            <CalculateButton>
               Calculate
               <CalculateIcon src={Calculate} />
             </CalculateButton>
@@ -74,9 +81,10 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 27.5%;
+  padding: 0;
 
-  @media screen and (min-width: 1200px) {
-    min-height: 150px;
+  @media screen and (max-width: 1536px) {
+    height: 180px;
     margin-bottom: 40px;
   }
 `;
@@ -88,6 +96,11 @@ const Card = styled.div`
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
+  padding : 0;
+
+  @media screen and (max-width: 1536px) {
+    height: 180px;
+  }
 `;
 
 const Title = styled.h3`
@@ -99,14 +112,14 @@ const Title = styled.h3`
   display: flex;
   align-items: center;
   text-align: center;
-  width: 30%;
+  width: 15%;
   color: #c2c0c0;
   margin-left: 30px;
   margin-bottom: 10px;
   margin-top: 20px;
 
   @media screen and (min-width: 1200px) {
-    min-width: 600px;
+    min-width: 250px;
     min-height: 80px;
     margin-bottom: -10px;
     margin-top: -10px;
@@ -115,18 +128,21 @@ const Title = styled.h3`
 `;
 
 const FormSection = styled.form`
-  width: 100%;
-  height: 70%;
+  width: 1730px;
+  height: 80%;
   color: White;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left : -210px;
   position: relative;
+  top : -20px;
   left: 210px;
-
-  @media screen and (min-width: 1200px) {
+  
+  
+  @media screen and (max-width: 1536px) {
     position: relative;
-    left: 210px;
+    left: -53px;
     top: -30px;
     height: 80%;
   }
@@ -195,15 +211,18 @@ const FormSection = styled.form`
 `;
 
 const InputField = styled.div`
-  width: 30%;
+  width: 530px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 150px;
 
-  @media screen and (min-width: 1200px) {
-    height: 120px;
+  @media screen and (max-width: 1536px) {
+    height: 150px;
+    width: 415px;
+    position: relative;
+    left: 93px;
   }
 `;
 

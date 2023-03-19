@@ -82,7 +82,10 @@ const Login = () => {
   //Handle Sign-up functionality
   const signupHandler = async (e) => {
     e.preventDefault();
-    // console.log({ userEmail, userPassword });
+    if (userEmail == "" || userPassword == "") {
+      alert("Please enter valid Email and Password");
+      return;
+    }
     const response = await fetch("http://localhost:8080/api/auth/signup", {
       method: "POST",
       headers: {
@@ -162,6 +165,10 @@ const Login = () => {
 
   const loginHandler = (e) => {
     e.preventDefault();
+    if (userEmail == "" || userPassword == "") {
+      alert("Please enter valid Email and Password");
+      return;
+    }
     dispatch(userLogin({ userEmail, userPassword }));
   };
 
@@ -175,6 +182,7 @@ const Login = () => {
             className="input"
             placeholder=""
             onInput={emailInputHandler}
+            required
           />
           <label htmlFor="email" className="label">
             Email
@@ -187,6 +195,7 @@ const Login = () => {
             className="input"
             placeholder=""
             onInput={validatePassword}
+            required
           />
           <label htmlFor="password" className="label">
             Password
