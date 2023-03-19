@@ -37,6 +37,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: auto;
+    width: 1200px;
+    overflow: scroll;
+  }
 `;
 
 export default TrackGoal;

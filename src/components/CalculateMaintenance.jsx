@@ -13,8 +13,8 @@ const CalculateMaintenance = () => {
   const dispatch = useDispatch();
   const currentWeight = useSelector((state) => state.goal.currentWeight);
   const activityLevel = useSelector((state) => state.goal.activityLevel);
-  const user = useSelector((state) => state.auth.userID);
-  const token = useSelector((state) => state.auth.token);
+  // const user = useSelector((state) => state.auth.userID);
+  // const token = useSelector((state) => state.auth.token);
 
   const handleCurrentWeightChange = (event) => {
     dispatch(updateCurrentWeight(event.target.value));
@@ -26,19 +26,20 @@ const CalculateMaintenance = () => {
 
   const calculateMaintainence = (e) => {
     e.preventDefault();
-
+    if (activityLevel == "" || currentWeight == "") {
+      alert("Please fill all the fields to calculate maintainance");
+      return;
+    }
     const CalculatedMaintainance = currentWeight * 2.2 * activityLevel;
-    console.log(CalculatedMaintainance.toFixed(1));
+    // console.log(CalculatedMaintainance.toFixed(1));
     dispatch(updateMaintainance(CalculatedMaintainance.toFixed(1)));
-    console.log(user);
-  
   };
 
   return (
     <Container>
       <Card>
         <Title>Calculate your maintainence calories</Title>
-        <FormSection>
+        <FormSection onSubmit={calculateMaintainence}>
           <InputField>
             <label name="weight" htmlFor="weight">
               Current Weight (Kg)
@@ -50,6 +51,8 @@ const CalculateMaintenance = () => {
               min="40"
               max="200"
               onChange={handleCurrentWeightChange}
+              required
+              step="0.1"
             />
             <p>Min-40Kg to Max - 200Kg</p>
           </InputField>
@@ -62,8 +65,10 @@ const CalculateMaintenance = () => {
               name="Activity"
               id="Activity"
               onChange={handleActivityLevelChange}
+              defaultValue=""
+              required
             >
-              <option value="0" disabled selected>
+              <option value="0" disabled>
                 Select
               </option>
               <option value="13">Sedentary (No Workout)</option>
@@ -75,18 +80,18 @@ const CalculateMaintenance = () => {
             <p>Daily Activity level</p>
           </InputField>
           <InputField>
-            <CalculateButton onClick={calculateMaintainence}>
+            <CalculateButton>
               Calculate
               <CalculateIcon src={Calculate} />
             </CalculateButton>
           </InputField>
         </FormSection>
-        {console.log(
+        {/* {console.log(
           "Current weight is ",
           currentWeight,
           "Current Activity level is",
           activityLevel
-        )}
+        )} */}
       </Card>
     </Container>
   );

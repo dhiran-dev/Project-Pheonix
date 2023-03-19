@@ -20,8 +20,16 @@ export default LoginPage;
 
 const Container = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
   height: 100%;
+
+  @media screen and (max-width: 1536px) {
+    overflow: hidden;
+  }
 `;
 
 const HeaderContent = styled.div`
@@ -33,6 +41,11 @@ const HeaderContent = styled.div`
   top: 10px;
   margin: auto;
   width: 800px;
+
+  @media screen and (max-width: 1536px) {
+    width: 750px;
+    top: -10px;
+  }
 `;
 
 const Title = styled.h1`
@@ -46,6 +59,11 @@ const Title = styled.h1`
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media screen and (max-width: 1536px) {
+    font-weight: 700;
+    font-size: 85px;
+  }
 `;
 
 const SubTitle = styled.h3`
@@ -90,4 +108,9 @@ const LoginSection = styled.div`
   justify-content: center;
   padding-top: 5px;
   border-radius: 4px;
+
+  @media screen and (max-width: 1536px) {
+    
+    top: -50px;
+  }
 `;

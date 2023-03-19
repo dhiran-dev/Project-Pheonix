@@ -63,20 +63,52 @@ const ViewLogs = () => {
     }
   }, [refreshLogs]);
 
-  return (
+  // return refreshData ? (
+  //   <Container>
+  //     <LogSection>
+  //       {refreshData &&
+  //         refreshData.logs &&
+  //         refreshData.logs.length > 0 &&
+  //         refreshData.logs.map((log) => (
+  //           <LogCard key={log._id}>
+  //             <Box>Date : {log.date}</Box>
+  //             <Box>Weight : {log.weight}</Box>
+  //             <Box>Cal. Burnt : {log.caloriesBurnt}</Box>
+  //             <Box>Cal. Intake : {log.CalorieIntake}</Box>
+  //             <Box>Intermittent : {log.Intermittent}</Box>
+  //           </LogCard>
+  //         ))}
+  //     </LogSection>
+
+  //     <RefreshButton>
+  //       <RefreshImg src={Refresh} onClick={handleRefresh} />
+  //     </RefreshButton>
+  //   </Container>
+  // ) : null;
+  // console.log(refreshData);
+  return refreshData && refreshData.logs && refreshData.logs.length > 0 ? (
     <Container>
       <LogSection>
-        {refreshData &&
-          refreshData.logs.map((log) => (
-            <LogCard key={log._id}>
-              <Box>Date : {log.date}</Box>
-              <Box>Weight : {log.weight}</Box>
-              <Box>Cal. Burnt : {log.caloriesBurnt}</Box>
-              <Box>Cal. Intake : {log.CalorieIntake}</Box>
-              <Box>Intermittent : {log.Intermittent}</Box>
-            </LogCard>
-          ))}
+        {refreshData.logs.map((log) => (
+          <LogCard key={log._id}>
+            <Box>Date : {log.date}</Box>
+            <Box>Weight : {log.weight}</Box>
+            <Box>Cal. Burnt : {log.caloriesBurnt}</Box>
+            <Box>Cal. Intake : {log.CalorieIntake}</Box>
+            <Box>Intermittent : {log.Intermittent}</Box>
+          </LogCard>
+        ))}
       </LogSection>
+
+      <RefreshButton>
+        <RefreshImg src={Refresh} onClick={handleRefresh} />
+      </RefreshButton>
+    </Container>
+  ) : (
+    <Container>
+      <MessageContainer>
+        <Message>Refresh to view old logs</Message>
+      </MessageContainer>
 
       <RefreshButton>
         <RefreshImg src={Refresh} onClick={handleRefresh} />
@@ -96,8 +128,25 @@ const Container = styled.div`
   align-items: center;
   overflow: hidden;
   background-color: #000000;
+
+  @media (max-width: 768px) {
+    height: auto;
+    width: auto;
+    /* overflow-x: visible ; */
+  }
 `;
 
+const MessageContainer = styled.div`
+  height: 200px;
+  width: 70%;
+  display : flex;
+  justify-content : center;
+  align-items : center;
+`;
+const Message = styled.h1`
+  
+  width: auto;
+`;
 const LogSection = styled.div`
   width: 90%;
   margin-right: 0;
@@ -119,6 +168,11 @@ const LogCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    width: auto;
+    height: 120px;
+  }
 `;
 
 const Box = styled.div`
@@ -133,6 +187,18 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    width: 150px;
+    height: auto;
+    /* overflow-y: auto; */
+    margin: auto;
+
+    :first-child {
+      width: 180px;
+    }
+  }
 `;
 
 const RefreshButton = styled.div`

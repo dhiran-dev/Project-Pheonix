@@ -31,6 +31,14 @@ const goalSlice = createSlice({
     updateGoalWeight: (state, action) => {
       state.goalweight = action.payload;
     },
+    updatelogoutGoal: (state) => {
+      state.currentWeight = "";
+      state.activityLevel = "";
+      state.rate = "";
+      state.maintainance = "";
+      state.goalCalories = "";
+      state.goalweight = "";
+    },
   },
 });
 
@@ -41,6 +49,7 @@ export const {
   updateMaintainance,
   updateGoalCalories,
   updateGoalWeight,
+  updatelogoutGoal,
 } = goalSlice.actions;
 
 export default goalSlice.reducer;
